@@ -1,21 +1,15 @@
-import { memo, useEffect, useState } from 'react'
-import type { User } from './type'
+import type { Dispatch, FC, ReactNode, SetStateAction } from 'react'
+import { memo } from 'react'
+import type { IUser } from './type'
 
-export const SearchPanel = memo(() => {
-  const [param, setParam] = useState({
-    name: '',
-    personId: '',
-  })
-  const [users, setUsers] = useState<User[]>([])
-  const [list, setList] = useState([])
-
-  useEffect(() => {
-    fetch('').then((response: Response) => {
-      if (response.ok)
-        // setList(await response.json())
-        setList([])
-    }).catch(() => {})
-  }, [param])
+interface IProps {
+  param: IUser
+  users: IUser[]
+  setParam: Dispatch<SetStateAction<IUser>>
+  children?: ReactNode
+}
+const SearchPanel: FC<IProps> = (props) => {
+  const { users, param, setParam } = props
 
   return <form>
     <div>
@@ -23,15 +17,17 @@ export const SearchPanel = memo(() => {
         ...param,
         name: evt.target.value,
       })} />
-      <select value={param.personId} onChange={evt => setParam({
+      <select value={param.id} onChange={evt => setParam({
         ...param,
-        personId: evt.target.value,
+        id: Number(evt.target.value),
       })}>
         <option value={''}>负责人</option>
       {
-        users.map(user => <option value={user.personId}>{user.name}</option>)
+        users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
       }
       </select>
     </div>
   </form>
-})
+}
+
+export default memo(SearchPanel)

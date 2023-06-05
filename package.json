@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "json-server": "json-server __json_server_mock__/db.json --watch"
+    "json-server": "json-server __json_server_mock__/db.json --watch  --port 3001"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
@@ -23,6 +23,7 @@
     "autoprefixer": "10.4.14",
     "next": "13.4.2",
     "postcss": "8.4.23",
+    "qs": "^6.11.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.2",
@@ -32,6 +33,7 @@
     "@antfu/eslint-config": "^0.39.3",
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
+    "@types/qs": "^6.9.7",
     "eslint": "^8.41.0",
     "husky": "^8.0.3",
     "json-server": "^0.17.3",
