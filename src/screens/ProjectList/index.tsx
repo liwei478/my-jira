@@ -5,7 +5,7 @@ import SearchPanel from './searchPanel'
 import List from './list'
 
 import type { IProjectInfo, IPublicRuntimeConfig, IUser } from './type'
-import { cleanObject } from '@/utils'
+import { cleanObject, useDebounce, useMount } from '@/utils'
 
 const { publicRuntimeConfig } = getConfig
 const apiUrl = (publicRuntimeConfig as IPublicRuntimeConfig).env === 'development' ? 'http://localhost:3001' : 'http://online.com'
@@ -14,21 +14,22 @@ export const ProjectListScreen = memo(() => {
     name: '',
     id: '',
   })
+  const debounceParam = useDebounce(param, 1000)
   const [users, setUsers] = useState<IUser[]>([])
   const [list, setList] = useState<IProjectInfo[]>([])
 
   useEffect(() => {
     if (!apiUrl)
       return
-    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(param))}`).then(async (response: Response) => {
+    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(async (response: Response) => {
       if (response.ok) {
         const res = await response.json() as IProjectInfo[]
         setList(res)
       }
     }).catch(() => {})
-  }, [param])
+  }, [debounceParam])
 
-  useEffect(() => {
+  useMount(() => {
     if (!apiUrl)
       return
     fetch(`${apiUrl}/users`).then(async (response: Response) => {
@@ -36,8 +37,8 @@ export const ProjectListScreen = memo(() => {
         const res = await response.json() as IUser[]
         setUsers(res)
       }
-    }).catch(() => {})
-  }, [])
+    }).catch(() => { })
+  })
 
   return <div >
     <SearchPanel users={users} param={param} setParam={setParam} />

@@ -1,4 +1,7 @@
-import type { IBasicType, IObjectInfo } from '@/screens/ProjectList/type'
+import type { EffectCallback } from 'react'
+import { useEffect, useState } from 'react'
+
+import type { IBasicType, IDebounceParam, IObjectInfo } from '@/screens/ProjectList/type'
 
 export const isFalsy = (value: IBasicType) => value === 0 ? true : !value
 
@@ -10,4 +13,18 @@ export function cleanObject(object: IObjectInfo) {
     isFalsy(value) && delete result[key]
   })
   return result
+}
+
+export function useMount(cb: EffectCallback) {
+  useEffect(cb, [])
+}
+
+export function useDebounce(value: IDebounceParam, delay: number) {
+  const [debounceValue, setDebounceValue] = useState(value)
+  useEffect(() => {
+    const timeout = setTimeout(() => setDebounceValue(value), delay)
+    return () => clearTimeout(timeout)
+  }, [value, delay])
+
+  return debounceValue
 }

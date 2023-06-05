@@ -20,3 +20,5 @@ export type IBasicType = number | string | null | undefined | Object
 export interface IObjectInfo {
   [key: string]: IBasicType
 }
+
+export type IDebounceParam = IUser
