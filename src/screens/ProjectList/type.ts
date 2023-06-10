@@ -22,3 +22,8 @@ export interface IObjectInfo {
 }
 
 export type IDebounceParam = IUser
+
+export interface ILoginParam {
+  username: string
+  password: string
+}

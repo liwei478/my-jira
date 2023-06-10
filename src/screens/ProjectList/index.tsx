@@ -1,14 +1,12 @@
 import { memo, useEffect, useState } from 'react'
 import * as qs from 'qs'
-import getConfig from '../../../next.config'
+
+import type { IProjectInfo, IUser } from './type'
 import SearchPanel from './searchPanel'
 import List from './list'
-
-import type { IProjectInfo, IPublicRuntimeConfig, IUser } from './type'
 import { cleanObject, useDebounce, useMount } from '@/utils'
+import { apiUrl } from '@/api/config'
 
-const { publicRuntimeConfig } = getConfig
-const apiUrl = (publicRuntimeConfig as IPublicRuntimeConfig).env === 'development' ? 'http://localhost:3001' : 'http://online.com'
 export const ProjectListScreen = memo(() => {
   const [param, setParam] = useState<IUser>({
     name: '',
@@ -43,5 +41,6 @@ export const ProjectListScreen = memo(() => {
   return <div >
     <SearchPanel users={users} param={param} setParam={setParam} />
     <List users={users} list={list} />
+
   </div>
 })
