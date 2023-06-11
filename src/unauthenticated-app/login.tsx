@@ -1,19 +1,25 @@
 import { Button, Form, Input } from 'antd'
 import { memo } from 'react'
-import type { ILoginParam } from '../ProjectList/type'
+import { useAuth } from '@/context/auth-context'
+import type { ILoginParam } from '@/screens/ProjectList/type'
 
 export const LoginScreen = memo(() => {
-  const login = (param: ILoginParam) => {
-
-  }
+  const { login, user } = useAuth()
   const onLoginFinish = (values: ILoginParam) => {
-    login(values)
+    login(values).then(() => {}).catch(() => {})
   }
   const onLoginFinishFailed = (errorInfo: any) => {
     console.log('Failed: ', errorInfo)
   }
 
   return <div suppressHydrationWarning={true}>
+    {
+      user
+        ? <div>
+            登录成功，用户名: {user?.token}
+      </div>
+        : null
+    }
     <Form name='basic' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} autoComplete='off' onFinish={onLoginFinish} onFinishFailed={onLoginFinishFailed}>
 
       <Form.Item label="用户名" name="username" rules={[{ required: true, message: '请输入用户名' }]}>

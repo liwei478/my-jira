@@ -12,10 +12,8 @@ export function handleUserResponse({ user }: IUserResponse) {
   return user
 }
 
-export function loginOrRegister(data: ILoginParam, type: string) {
-  if (!apiUrl)
-    return
-  fetch(`${apiUrl}/${type}`, {
+export async function loginOrRegister(data: ILoginParam, type: string) {
+  return fetch(`${apiUrl}/${type}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -24,11 +22,14 @@ export function loginOrRegister(data: ILoginParam, type: string) {
   }).then(async (response: Response) => {
     if (response.ok)
       return handleUserResponse(await response.json() as IUserResponse)
+    else
+      return Promise.reject(data)
   }).catch((err) => {
-    console.log('error: ', err)
+    return Promise.reject(err)
   })
 }
 
-export function logout() {
+// eslint-disable-next-line @typescript-eslint/require-await
+export async function logout() {
   window.localStorage.removeItem(localStorageKey)
 }
