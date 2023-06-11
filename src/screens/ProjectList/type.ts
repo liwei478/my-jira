@@ -1,6 +1,16 @@
 export interface IUser extends IObjectInfo {
   name: string
   id: number | string
+
+}
+
+export interface IUserVedio {
+  id: string | number
+  name: string
+  email: string
+  title: string
+  organization: string
+  token: string
 }
 
 export interface IProjectInfo {
@@ -26,4 +36,8 @@ export type IDebounceParam = IUser
 export interface ILoginParam {
   username: string
   password: string
+}
+
+export interface IUserResponse {
+  user: IUserVedio
 }

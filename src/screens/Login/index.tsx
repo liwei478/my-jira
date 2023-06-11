@@ -1,25 +1,10 @@
 import { Button, Form, Input } from 'antd'
 import { memo } from 'react'
 import type { ILoginParam } from '../ProjectList/type'
-import { apiUrl } from '@/api/config'
 
 export const LoginScreen = memo(() => {
   const login = (param: ILoginParam) => {
-    if (!apiUrl)
-      return
-    fetch(`${apiUrl}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(param),
-    }).then((response: Response) => {
-      if (response.ok) {
-        // the result is ok
-      }
-    }).catch((err) => {
-      console.log('error: ', err)
-    })
+
   }
   const onLoginFinish = (values: ILoginParam) => {
     login(values)
