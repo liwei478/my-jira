@@ -4,8 +4,11 @@ import { ProjectListScreen } from './screens/ProjectList'
 
 export function AuthenticatedApp() {
   const { logout } = useAuth()
+  const customLogout = () => {
+    logout().then(() => {}).catch(() => {})
+  }
   return <div>
-    <Button onClick={() => logout}>登出</Button>
+    <Button onClick={customLogout}>登出</Button>
     <ProjectListScreen />
   </div>
 }
