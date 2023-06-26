@@ -16,15 +16,15 @@ export const RegisterScreen = memo(() => {
     <Form name='basic' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} autoComplete='off' onFinish={onLoginFinish} onFinishFailed={onLoginFinishFailed}>
 
       <Form.Item label="用户名" name="username" rules={[{ required: true, message: '请输入用户名' }]}>
-        <Input />
+        <Input placeholder='用户名' />
       </Form.Item>
 
       <Form.Item label="密码" name="password" rules={[{ required: true, message: '请输入密码' }]}>
-        <Input.Password />
+        <Input.Password placeholder='密码' />
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type='primary' htmlType='submit'>注册</Button>
+      <Form.Item wrapperCol={{ span: 24 }}>
+        <Button className='w-full' type='primary' htmlType='submit'>注册</Button>
       </Form.Item>
 
     </Form>

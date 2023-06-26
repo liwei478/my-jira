@@ -29,9 +29,8 @@ export const ProjectListScreen = memo(() => {
     client('users').then(setUsers).catch(() => {})
   })
 
-  return <div >
+  return <div>
     <SearchPanel users={users} param={param} setParam={setParam} />
     <List users={users} list={list} />
-
   </div>
 })

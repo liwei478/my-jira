@@ -1,5 +1,6 @@
 import type { Dispatch, FC, ReactNode, SetStateAction } from 'react'
 import { memo } from 'react'
+import { Input, Select } from 'antd'
 import type { IUser } from './type'
 
 interface IProps {
@@ -11,21 +12,21 @@ interface IProps {
 const SearchPanel: FC<IProps> = (props) => {
   const { users, param, setParam } = props
 
-  return <form>
+  return <form className='text-center'>
     <div>
-      <input type="text" value={param.name} onChange={evt => setParam({
+      <Input type="text" value={param.name} onChange={evt => setParam({
         ...param,
         name: evt.target.value,
       })} />
-      <select value={param.id} onChange={evt => setParam({
+      <Select value={param.id} onChange={value => setParam({
         ...param,
-        id: Number(evt.target.value),
+        id: Number(value),
       })}>
-        <option value={''}>负责人</option>
+        <Select.Option value={''}>负责人</Select.Option>
       {
-        users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
+        users.map(user => <Select.Option key={user.id} value={user.id}>{user.name}</Select.Option>)
       }
-      </select>
+      </Select>
     </div>
   </form>
 }

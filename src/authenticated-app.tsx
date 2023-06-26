@@ -7,8 +7,8 @@ export function AuthenticatedApp() {
   const customLogout = () => {
     logout().then(() => {}).catch(() => {})
   }
-  return <div>
-    <Button onClick={customLogout}>登出</Button>
+  return <div className='flex flex-col justify-center items-center'>
+    <Button className='w-1/4 ' onClick={customLogout}>登出</Button>
     <ProjectListScreen />
   </div>
 }
