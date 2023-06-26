@@ -5,7 +5,8 @@ import { AuthProvider } from '@/context/auth-context'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center ">
+    // flex min-h-screen flex-col items-center justify-center
+    <main className="">
       <AuthProvider>
         <App />
       </AuthProvider>
