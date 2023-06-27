@@ -20,16 +20,17 @@ export const ProjectListScreen = memo(() => {
   useEffect(() => {
     if (!apiUrl)
       return
-    client('projects', { data: cleanObject(debounceParam) }).then(setList).catch(() => {})
+    client('projects', { data: cleanObject(debounceParam) }).then(setList).catch(() => { })
   }, [debounceParam])
 
   useMount(() => {
     if (!apiUrl)
       return
-    client('users').then(setUsers).catch(() => {})
+    client('users').then(setUsers).catch(() => { })
   })
 
-  return <div>
+  return <div className='p-[3.2rem]'>
+    <h1>项目列表</h1>
     <SearchPanel users={users} param={param} setParam={setParam} />
     <List users={users} list={list} />
   </div>

@@ -18,6 +18,7 @@ export interface IProjectInfo {
   name: string
   personId: number
   organization: string
+  pin: boolean
   created: number
 }
 
