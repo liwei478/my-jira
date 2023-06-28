@@ -37,7 +37,7 @@ const List: FC<IProps> = (props) => {
         </span>
       },
     },
-  ]} dataSource={list} />
+  ]} dataSource={list} rowKey={'id'} />
 }
 
 export default memo(List)

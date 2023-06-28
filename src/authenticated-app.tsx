@@ -1,5 +1,6 @@
 import type { MenuProps } from 'antd'
-import { Dropdown, Menu } from 'antd'
+import { Button, Dropdown, Menu } from 'antd'
+
 import { useAuth } from './context/auth-context'
 import SoftwareLogo from './assets/software-logo.svg'
 import { ProjectListScreen } from './screens/ProjectList'
@@ -9,13 +10,15 @@ export function AuthenticatedApp() {
   const customLogout = () => {
     logout().then(() => { }).catch(() => { })
   }
+  const logoutMenuItems: MenuProps['items'] = [{
+    key: 'logout',
+    label: (<Button type='link' onClick={customLogout}>登出</Button>),
+  }]
   const userInfoItems: MenuProps['items'] = [{
     key: '1',
-    label: (<Menu>
-      <Menu.Item key={'logout'}>
-        <a onClick={customLogout}>登出</a>
-      </Menu.Item>
-    </Menu>),
+    label: (<Menu items={logoutMenuItems} />
+
+    ),
   }]
   return <div className='grid grid-rows-[6rem_1fr_6rem] h-screen'>
     <div className='flex flex-row items-center justify-between p-[3.2rem] shadow-[0_0_5px_rbga(0,0,0,0.1) z-[1]]'>
@@ -28,14 +31,14 @@ export function AuthenticatedApp() {
       </div>
       <div>
         <Dropdown menu={{ items: userInfoItems }}>
-          <a onClick={e => e.preventDefault()}>
+          <Button type='link' >
             Hi, {user?.name}
-          </a>
+          </Button>
         </Dropdown>
       </div>
-    </div>
+    </div >
     <div>
       <ProjectListScreen />
     </div>
-  </div>
+  </div >
 }

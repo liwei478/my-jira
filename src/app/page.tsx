@@ -1,15 +1,15 @@
 'use client'
 
 import App from '../index'
-import { AuthProvider } from '@/context/auth-context'
+import { AppProviders } from '@/context'
 
 export default function Home() {
   return (
     // flex min-h-screen flex-col items-center justify-center
     <main className="">
-      <AuthProvider>
+      <AppProviders>
         <App />
-      </AuthProvider>
+      </AppProviders>
     </main>
   )
 }
