@@ -3,8 +3,8 @@ import { memo, useEffect, useState } from 'react'
 import type { IProjectInfo, IUser } from './type'
 import SearchPanel from './searchPanel'
 import List from './list'
+
 import { cleanObject, useDebounce, useMount } from '@/utils'
-import { apiUrl } from '@/api/config'
 import { useHttp } from '@/http'
 
 export const ProjectListScreen = memo(() => {
@@ -18,15 +18,18 @@ export const ProjectListScreen = memo(() => {
   const client = useHttp()
 
   useEffect(() => {
-    if (!apiUrl)
-      return
-    client('projects', { data: cleanObject(debounceParam) }).then(setList).catch(() => { })
+    client('/api/projects', { data: cleanObject(debounceParam) }).then((res: { projects: IProjectInfo[] }) => {
+      setList(res.projects)
+    }).catch(() => { })
   }, [debounceParam])
 
   useMount(() => {
-    if (!apiUrl)
-      return
-    client('users').then(setUsers).catch(() => { })
+    client('/api/users')
+      .then((res: { users: IUser[] }) => {
+        setUsers(res.users)
+      }).catch(() => {})
+
+      .catch(() => {})
   })
 
   return <div className='p-[3.2rem]'>

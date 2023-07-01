@@ -1,6 +1,5 @@
 // 在真实的环境中，如果使用 firebase 这种第三方 auth 服务的话，本文件不需要开发者开发
 
-import { apiUrl } from './api/config'
 import type { ILoginParam, IUserResponse } from './screens/ProjectList/type'
 
 const localStorageKey = '__auth_provider_token__'
@@ -13,20 +12,17 @@ export function handleUserResponse({ user }: IUserResponse) {
 }
 
 export async function loginOrRegister(data: ILoginParam, type: string) {
-  return fetch(`${apiUrl}/${type}`, {
+  const res = await fetch(`/api/${type}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
-  }).then(async (response: Response) => {
-    if (response.ok)
-      return handleUserResponse(await response.json() as IUserResponse)
-    else
-      return Promise.reject(data)
-  }).catch((err) => {
-    return Promise.reject(err)
   })
+  if (res.ok)
+    return handleUserResponse(await res.json() as IUserResponse)
+  else
+    return Promise.reject(data)
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await

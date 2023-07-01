@@ -5,9 +5,11 @@ import type { ILoginParam } from '@/screens/ProjectList/type'
 
 export const LoginScreen = memo(() => {
   const { login/* , user */ } = useAuth()
+
   const onLoginFinish = (values: ILoginParam) => {
     login(values).then(() => {}).catch(() => {})
   }
+
   const onLoginFinishFailed = (errorInfo: any) => {
     console.log('Failed: ', errorInfo)
   }

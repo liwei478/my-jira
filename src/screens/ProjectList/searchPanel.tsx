@@ -11,8 +11,10 @@ interface IProps {
 }
 const SearchPanel: FC<IProps> = (props) => {
   const { users, param, setParam } = props
+  const userSelectOptions = [{ id: 0, name: '负责人' }, ...users]
 
   return <Form layout='inline' style={{ marginBottom: '2rem' }}>
+
     <Form.Item>
       <Input placeholder='项目名' type="text" value={param.name} onChange={evt => setParam({
         ...param,
@@ -20,15 +22,13 @@ const SearchPanel: FC<IProps> = (props) => {
       })} />
     </Form.Item>
     <Form.Item>
-      <Select value={param.id} onChange={value => setParam({
+      <Select defaultValue={0} options={userSelectOptions.map(d => ({
+        value: d.id,
+        label: d.name,
+      }))} style={{ width: 120 }} onChange={value => setParam({
         ...param,
         id: Number(value),
-      })}>
-        <Select.Option value={''}>负责人</Select.Option>
-        {
-          users.map(user => <Select.Option key={user.id} value={user.id}>{user.name}</Select.Option>)
-        }
-      </Select>
+      })} />
     </Form.Item>
   </Form>
 }

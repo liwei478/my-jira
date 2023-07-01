@@ -2,7 +2,6 @@
 import qs from 'qs'
 import * as auth from './auth-provider'
 import { useAuth } from './context/auth-context'
-import { apiUrl } from '@/api/config'
 
 interface Config extends RequestInit {
   token?: string
@@ -21,12 +20,12 @@ export async function http(endpoint: string, { data, token, headers, ...customCo
   }
 
   if (config.method.toUpperCase() === 'GET')
-    endpoint += `${qs.stringify(data)}`
+    endpoint += `?${qs.stringify(data)}`
   else
     config.body = JSON.stringify(data || {})
 
   // axios 和 fetch 的表现不一样，axios 可以直接在返回状态不为 2xx 的时候抛出异常
-  return window.fetch(`${apiUrl}/${endpoint}`, config)
+  return window.fetch(`${endpoint}`, config)
     .then(async (response) => {
       if (response.status === 401) {
         await auth.logout()
