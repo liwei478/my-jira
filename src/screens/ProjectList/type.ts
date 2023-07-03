@@ -14,7 +14,7 @@ export interface IUserVedio {
 }
 
 export interface IProjectInfo {
-  id: number
+  id: number | string
   name: string
   personId: number
   organization: string

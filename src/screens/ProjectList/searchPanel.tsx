@@ -16,7 +16,7 @@ const SearchPanel: FC<IProps> = (props) => {
   return <Form layout='inline' style={{ marginBottom: '2rem' }}>
 
     <Form.Item>
-      <Input placeholder='项目名' type="text" value={param.name} onChange={evt => setParam({
+      <Input placeholder='项目名' type="text" allowClear value={param.name} onChange={evt => setParam({
         ...param,
         name: evt.target.value,
       })} />
@@ -28,7 +28,7 @@ const SearchPanel: FC<IProps> = (props) => {
       }))} style={{ width: 120 }} onChange={value => setParam({
         ...param,
         id: Number(value),
-      })} />
+      })} allowClear />
     </Form.Item>
   </Form>
 }

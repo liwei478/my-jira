@@ -17,6 +17,7 @@
     "*": "eslint --fix"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@types/node": "20.1.4",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",

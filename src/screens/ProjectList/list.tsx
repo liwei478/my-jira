@@ -1,16 +1,16 @@
 import type { FC, ReactNode } from 'react'
 import dayjs from 'dayjs'
 import { memo } from 'react'
+import type { TableProps } from 'antd'
 import { Table } from 'antd'
 import type { IProjectInfo, IUser } from './type'
 
-interface IProps {
+interface IProps extends TableProps<IProjectInfo> {
   users: IUser[]
-  list: IProjectInfo[]
   children?: ReactNode
 }
-const List: FC<IProps> = (props) => {
-  const { users, list } = props
+const List: FC<IProps> = ({ users, ...props }) => {
+  // const { users, list } = props
   return <Table className='' pagination={false} columns={[
     {
       title: '名称',
@@ -37,7 +37,7 @@ const List: FC<IProps> = (props) => {
         </span>
       },
     },
-  ]} dataSource={list} rowKey={'id'} />
+  ]} {...props} rowKey={'id'} />
 }
 
 export default memo(List)
