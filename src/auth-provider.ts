@@ -22,7 +22,7 @@ export async function loginOrRegister(data: ILoginParam, type: string) {
   if (res.ok)
     return handleUserResponse(await res.json() as IUserResponse)
   else
-    return Promise.reject(data)
+    return Promise.reject(await res.json())
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await

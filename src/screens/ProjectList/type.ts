@@ -38,6 +38,11 @@ export interface ILoginParam {
   username: string
   password: string
 }
+export interface IRegisterParam {
+  username: string
+  password: string
+  cPassword: string
+}
 
 export interface IUserResponse {
   user: IUserVedio

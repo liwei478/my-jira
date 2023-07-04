@@ -2,12 +2,14 @@ import { Button, Form, Input } from 'antd'
 import { memo } from 'react'
 import { useAuth } from '@/context/auth-context'
 import type { ILoginParam } from '@/screens/ProjectList/type'
+import { useAsync } from '@/utils/use-async'
 
-export const LoginScreen = memo(() => {
+export const LoginScreen = memo(({ onError }: { onError: (error: Error) => void }) => {
   const { login/* , user */ } = useAuth()
+  const { run, isLoading } = useAsync(undefined, { throwOnError: true })
 
   const onLoginFinish = (values: ILoginParam) => {
-    login(values).then(() => {}).catch(() => {})
+    run(login(values)).then(() => { }).catch((e: Error) => onError(e))
   }
 
   const onLoginFinishFailed = (errorInfo: any) => {
@@ -34,7 +36,7 @@ export const LoginScreen = memo(() => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ span: 24 }}>
-        <Button className='w-full' type='primary' htmlType='submit'>登录</Button>
+        <Button loading={isLoading} className='w-full' type='primary' htmlType='submit'>登录</Button>
       </Form.Item>
 
     </Form>

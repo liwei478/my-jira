@@ -6,13 +6,21 @@ interface State<D> {
   customState: 'idle' | 'loading' | 'error' | 'success'
 }
 
+interface ErrorConfig {
+  throwOnError: boolean
+}
 const defaultInitialState: State<null> = {
   customState: 'idle',
   data: null,
   error: null,
 }
 
-export function useAsync<D>(initialState?: State<D>) {
+const defaultConfig: ErrorConfig = {
+  throwOnError: false,
+}
+
+export function useAsync<D>(initialState?: State<D>, initialConfig?: ErrorConfig) {
+  const config = { ...defaultConfig, ...initialConfig }
   const [state, setState] = useState<State<D>>({
     ...defaultInitialState,
     ...initialState,
@@ -42,7 +50,10 @@ export function useAsync<D>(initialState?: State<D>) {
         return data
       })
       .catch((error: Error) => {
+        // catch 会消化异常，如果不主动抛出，外面是接收不到异常的
         setError(error)
+        if (config.throwOnError)
+          return Promise.reject(error)
         return error
       })
   }

@@ -4,7 +4,7 @@ import type { ILoginParam } from '@/screens/ProjectList/type'
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { username, password } = (req.body as ILoginParam)
-    if (username !== '' && password !== '') {
+    if (username === 'fog' && password === '123456') {
       res.status(200).json({
         user: {
           id: Number(Math.random().toFixed(6)) * 10000,
