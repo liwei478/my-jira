@@ -1,12 +1,14 @@
 import type { ReactNode } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
+import { Spin, Typography } from 'antd'
 import * as auth from '../auth-provider'
 import type { ILoginParam, IUserVedio } from '@/screens/ProjectList/type'
 import { http } from '@/http'
 import { useMount } from '@/utils'
+import { useAsync } from '@/utils/use-async'
 
 async function bootstrapUser() {
-  let user = null
+  let user: IUserVedio | null = null
   const token = auth.getToken()
   if (token) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -14,7 +16,7 @@ async function bootstrapUser() {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     user = data.user
   }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+
   return user
 }
 
@@ -28,7 +30,7 @@ AuthContext.displayName = 'AuthContext'
 
 // point free
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<IUserVedio | null>(null)
+  const { data: user, error, isLoading, isIdle, isError, run, setData: setUser } = useAsync<IUserVedio | null>()
 
   const login = (form: ILoginParam) => auth.loginOrRegister(form, 'login').then(setUser)
   const register = (form: ILoginParam) => auth.loginOrRegister(form, 'register')
@@ -36,8 +38,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => auth.logout().then(() => setUser(null))
 
   useMount(() => {
-    bootstrapUser().then(setUser).catch(() => { })
+    run(bootstrapUser()).then().catch(() => { })
   })
+
+  if (isIdle || isLoading) {
+    return <div className='h-screen flex justify-center items-center'>
+      <Spin size='large' />
+    </div>
+  }
+  if (isError) {
+    return <div className='h-screen flex justify-center items-center'>
+      <Typography.Text type='danger'>{error?.message}</Typography.Text>
+    </div>
+  }
 
   return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />
 }
