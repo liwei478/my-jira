@@ -10,7 +10,7 @@ async function bootstrapUser() {
   const token = auth.getToken()
   if (token) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const data = await http('me', { token })
+    const data = await http('/api/me', { token })
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     user = data.user
   }
@@ -36,7 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => auth.logout().then(() => setUser(null))
 
   useMount(() => {
-    bootstrapUser().then(setUser).catch(() => {})
+    bootstrapUser().then(setUser).catch(() => { })
   })
 
   return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />
