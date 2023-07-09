@@ -16,7 +16,7 @@ export function AuthenticatedApp() {
   }]
   const userInfoItems: MenuProps['items'] = [{
     key: '1',
-    label: <Menu items={logoutMenuItems } />,
+    label: <Menu items={logoutMenuItems} />,
   }]
   return <div className='grid grid-rows-[6rem_1fr_6rem] h-screen'>
     <div className='flex flex-row items-center justify-between p-[3.2rem] shadow-[0_0_5px_rbga(0,0,0,0.1) z-[1]]'>
