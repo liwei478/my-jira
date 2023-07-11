@@ -1,5 +1,5 @@
 import type { EffectCallback } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import type { IBasicType, IDebounceParam, IObjectInfo } from '@/screens/ProjectList/type'
 
@@ -33,7 +33,9 @@ export function useDebounce(value: IDebounceParam, delay: number) {
 }
 
 export function useDocumentTitle(title: string, keepOnUnmount = true) {
-  const oldTitle = document.title
+  const oldTitle = useRef(document.title).current
+  // 页面加载前：旧oldTitle
+  // 页面加载后：新oldTitle
   useEffect(() => {
     document.title = title
   }, [title])
@@ -41,5 +43,5 @@ export function useDocumentTitle(title: string, keepOnUnmount = true) {
     return () => {
       !keepOnUnmount && (document.title = oldTitle)
     }
-  }, [])
+  }, [keepOnUnmount, oldTitle])
 }
