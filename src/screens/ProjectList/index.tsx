@@ -6,7 +6,7 @@ import type { IUser } from './type'
 import SearchPanel from './searchPanel'
 import List from './list'
 
-import { useDebounce } from '@/utils'
+import { useDebounce, useDocumentTitle } from '@/utils'
 import { useUsers } from '@/utils/users'
 
 export const ProjectListScreen = memo(() => {
@@ -17,6 +17,7 @@ export const ProjectListScreen = memo(() => {
   const debounceParam = useDebounce(param, 1000)
   const { isLoading, error, data: list } = useProjects(debounceParam)
   const { data: user } = useUsers()
+  useDocumentTitle('项目列表', false)
 
   return <div className='p-[3.2rem]'>
     <h1>项目列表</h1>

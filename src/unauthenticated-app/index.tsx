@@ -2,10 +2,13 @@ import { useState } from 'react'
 import { Button, Card, Divider, Typography } from 'antd'
 import { RegisterScreen } from './register'
 import { LoginScreen } from './login'
+import { useDocumentTitle } from '@/utils'
 
 export function UnauthenticatedApp() {
   const [isRegister, setIsRegister] = useState(false)
   const [error, setError] = useState<Error | null>(null)
+
+  useDocumentTitle('请登录或注册以继续')
 
   return <div className='flex flex-col items-center min-h-screen'>
     <header className="w-full bg-[url('../assets/logo.svg')] bg-no-repeat bg-center pt-[5rem] pb-[5rem] bg-[length:8rem]" ></header>
