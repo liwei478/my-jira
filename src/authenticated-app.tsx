@@ -1,6 +1,7 @@
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Menu } from 'antd'
 
+// import { Outlet } from 'react-router'
 import { useAuth } from './context/auth-context'
 import SoftwareLogo from './assets/software-logo.svg'
 import { ProjectListScreen } from './screens/ProjectList'
@@ -37,6 +38,14 @@ export function AuthenticatedApp() {
     </div >
     <div>
       <ProjectListScreen />
+      {/* <Router>
+        <Routes>
+          <Route path={'/projects'} element={<ProjectListScreen />} />
+          <Route path={'/projects/:projectId/*'} element={<ProjectScreen />} />
+        </Routes>
+      </Router> */}
+      {/* <Outlet /> */}
+      {/* <Link to={'/projects'} /> */}
     </div>
   </div >
 }

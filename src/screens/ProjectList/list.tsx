@@ -14,8 +14,13 @@ const List: FC<IProps> = ({ users, ...props }) => {
   return <Table className='' pagination={false} columns={[
     {
       title: '名称',
-      dataIndex: 'name',
+      // dataIndex: 'name',
       sorter: (a, b) => a.name.localeCompare(b.name),
+      render(value, project) {
+        console.log(value, project)
+        // return <Link to={String(project.id)}>{project.name}</Link>
+        return <div>{project.name}</div>
+      },
     },
     {
       title: '部门',
